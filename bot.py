@@ -1,7 +1,6 @@
 import logging
 import os
 import json
-
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, WebAppInfo
 from telegram.ext import Application, CommandHandler, ContextTypes, CallbackQueryHandler, MessageHandler, filters
 from telegram.constants import ParseMode
@@ -158,8 +157,11 @@ def main() -> None:
     application.add_handler(CallbackQueryHandler(view_stats, pattern="^view_stats$"))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
+    # Get the port from environment variable or use default
+    port = int(os.environ.get("PORT", 5000))  # Render assigns a dynamic port
+
     # Run the bot
-    application.run_polling()
+    application.run_polling(port=port)  # Bind to the correct port
 
 
 if __name__ == "__main__":
