@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: telegram-anime-bot
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn bot:app
+    envVars:
+      - key: BOT_TOKEN
+        value: "7610200608:AAFdG-h0mvgNdjkrJq0fRXoYHiiXoKSq-yI"
+      - key: CHANNEL_USERNAME
+        value: "@toonwav"
+      - key: CHANNEL_URL
+        value: "https://t.me/toonwav"
+      - key: ADMIN_ID
+        value: "5771629925"
+    disk:
+      size: 1GB
