@@ -14,5 +14,4 @@ services:
         value: "https://t.me/toonwav"
       - key: ADMIN_ID
         value: "5771629925"
-    disk:
-      size: 1GB
+
