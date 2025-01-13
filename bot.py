@@ -157,11 +157,14 @@ def main() -> None:
     application.add_handler(CallbackQueryHandler(view_stats, pattern="^view_stats$"))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-    # Get the port from environment variable or use default
+    # Setup webhook for Render or any platform
     port = int(os.environ.get("PORT", 5000))  # Render assigns a dynamic port
-
-    # Run the bot
-    application.run_polling(port=port)  # Bind to the correct port
+    application.run_webhook(
+        listen="0.0.0.0",  # Listen on all network interfaces
+        port=port,          # Set dynamic port
+        url_path=my_bot_token,  # Use token for URL path
+        webhook_url=f"https://telegram-anime-bot.onrender.com/{my_bot_token}",  # Update with your render URL
+    )
 
 
 if __name__ == "__main__":
